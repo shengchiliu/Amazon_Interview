@@ -111,14 +111,7 @@ for i in range(3):
     yr0[i, :] = np.real( ifft(X0_cpx * fft(h0_cpx_denor[i, :])) )
 
 
-
-# plt.subplot(131)
-# plt.plot(data1)
-# plt.subplot(132)
-# plt.plot(yr0[0, :])
-# plt.subplot(133)
-# plt.plot(np.round(yr0[0, :])-data1)
-# plt.show()
+np.savez('./data/dataset.npz', X0_cpx=X0_cpx, Y0_cpx=Y0_cpx, h0_2ch_nor=h0_2ch_nor, par_margin0=par_margin0)
 
 
 # spectrum = np.fft.fft(data)
@@ -128,7 +121,3 @@ for i in range(3):
 
 # mod = np.hstack([data1, data2, data3])
 # wavfile.write('./data/modified.wav', rate, mod)
-
-
-np.savez('./data/dataset.npz', X0_cpx=X0_cpx, Y0_cpx=Y0_cpx, h0_2ch_nor=h0_2ch_nor, par_margin0=par_margin0)
-

@@ -109,7 +109,7 @@ def makepath(path):
 
 
 def saveCode(dir_save_code):
-    copyfile('./main_bvae.py', dir_save_code + 'main_bvae.py')
+    copyfile('./main.py', dir_save_code + 'main.py')
     copyfile('./model.py', dir_save_code + 'model.py')
 
     
@@ -164,13 +164,13 @@ def parameters():
     n_checks   = 50                         # total checkpoints (grid checkpoint)
     n_power    = 3                          # the power of 1 or 3 (grid checkpoint)
     dim_latent = 16                         # total latent variables
-    dim_input  = (26496)                    # both input and output size of the sum of real and imag
+    dim_input  = 26496                      # both input and output size of the sum of real and imag
     dim_accumulate = 26496
     return n_checks, n_power, dim_latent, dim_input, dim_accumulate
 
 def hyperparameters():
     beta          = 1                       # modify the weight of KLD_loss in all R, G, B channel
-    n_epochs      = 10000                   # epoch
+    n_epochs      = 20000                   # epoch
     batch_size    = 50                      # batch size
     learning_rate = 1e-4                    # 1e-3, large learning rate has high jumps
     return beta, n_epochs, batch_size, learning_rate
@@ -188,7 +188,7 @@ if __name__ == "__main__":
     beta, n_epochs, batch_size, learning_rate = hyperparameters()
     device, path_load_npz, path_save_npz, path_save_pth, dir_save_code, dir_checkpoint = settings()
 
-    print('===> Loading Dataset (2 x 3 Channels)')
+    print('===> Loading Dataset')
     train_loader, test_loader = data_loader(path_load_npz, batch_size)
 
     print('===> Save Python Codes')
