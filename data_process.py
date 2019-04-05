@@ -50,22 +50,22 @@ def fil(X_wav, Y_wav):
 
 
 
-# rate, data0 = wave.read('./data/ow.wav')
-# rate, data1 = wave.read('./data/how.wav')
-# rate, data2 = wave.read('./data/are.wav')
-# rate, data3 = wave.read('./data/you.wav')
-# print(data0.shape, data1.shape, data2.shape, data3.shape)
+rate, data0 = wave.read('./data/ow.wav')
+rate, data1 = wave.read('./data/how.wav')
+rate, data2 = wave.read('./data/are.wav')
+rate, data3 = wave.read('./data/you.wav')
+print(data0.shape, data1.shape, data2.shape, data3.shape)
 
-# data0_ = data0[(13824-13248)//2:(13824-13248)//2+13248]
-# data1_ = data1[(14976-13248)//2:(14976-13248)//2+13248]
-# data2_ = data2.copy()
-# data3_ = data3[(14400-13248)//2:(14400-13248)//2+13248]
+data0_ = data0[(13824-13248)//2:(13824-13248)//2+13248]
+data1_ = data1[(14976-13248)//2:(14976-13248)//2+13248]
+data2_ = data2.copy()
+data3_ = data3[(14400-13248)//2:(14400-13248)//2+13248]
 
-# wavfile.write('./data/0.wav', rate, data0_)
-# wavfile.write('./data/1.wav', rate, data1_)
-# wavfile.write('./data/2.wav', rate, data2_)
-# wavfile.write('./data/3.wav', rate, data3_)
-# print(data0_.shape, data1_.shape, data2_.shape, data3_.shape)
+wavfile.write('./data/0.wav', rate, data0_)
+wavfile.write('./data/1.wav', rate, data1_)
+wavfile.write('./data/2.wav', rate, data2_)
+wavfile.write('./data/3.wav', rate, data3_)
+print(data0_.shape, data1_.shape, data2_.shape, data3_.shape)
 
 
 rate, data0 = wave.read('./data/0.wav')
@@ -121,3 +121,39 @@ np.savez('./data/dataset.npz', X0_cpx=X0_cpx, Y0_cpx=Y0_cpx, h0_2ch_nor=h0_2ch_n
 
 # mod = np.hstack([data1, data2, data3])
 # wavfile.write('./data/modified.wav', rate, mod)
+
+
+time = data0.size/rate
+t_axis = np.linspace(0, time, data0.shape[0]//20+1)
+
+print('Data:', data0)
+print('Sampling rate:', rate)
+print('Audio length:', time, 'seconds')
+print('Lowest amplitude:', min(data0))
+print('Highest amplitude:', max(data0))
+
+plt.figure()
+plt.subplot(221)
+plt.plot(t_axis, data0[::20], 'k-', label='audio: ow', linewidth=1)
+plt.ylabel('Amplitude (a.u.)')
+plt.xlabel('Time (second)')
+plt.legend()
+
+plt.subplot(222)
+plt.plot(t_axis, data1[::20], 'r-', label='audio: how', linewidth=1)
+plt.ylabel('Amplitude (a.u.)')
+plt.xlabel('Time (second)')
+plt.legend()
+
+plt.subplot(223)
+plt.plot(t_axis, data2[::20], 'g-', label='audio: are', linewidth=1)
+plt.ylabel('Amplitude (a.u.)')
+plt.xlabel('Time (second)')
+plt.legend()
+
+plt.subplot(224)
+plt.plot(t_axis, data3[::20], 'b-', label='audio: you', linewidth=1)
+plt.ylabel('Amplitude (a.u.)')
+plt.xlabel('Time (second)')
+plt.legend()
+plt.show()
